@@ -32,3 +32,5 @@ Example:
 > <button data-open-modal="rev-testing">Click me!</button>
 ```
 The code above will pop up a modal box.
+
+## Full documentation is coming soon
