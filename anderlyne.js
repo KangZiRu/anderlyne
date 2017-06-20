@@ -119,7 +119,7 @@ jQuery.fn.extend({
             },
             main: function(x) {
                 if (typeof x == "undefined") {
-                    x = "*";
+                    x = document;
                 }
 
                 $(x).on("click", "div[data-modal]",function(event) {
@@ -205,14 +205,14 @@ jQuery.fn.extend({
                     $(contextMenu).css({
                         left: x,
                         top: y
-                    }).show();
+                    }).slideDown();
 
                     return false;
                 })
 
                 $(document).click(function(e) {
                     $("[data-context-menu]")
-                        .hide()
+                        .slideUp()
                         .offset({
                             x: 0,
                             y: 0
