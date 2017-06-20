@@ -122,29 +122,25 @@ jQuery.fn.extend({
                     x = "*";
                 }
 
-                var data0 = x + " div[data-modal]",
-                    data1 = x + " [data-modal-close]",
-                    data2 = x + " [data-open-modal]";
-
-                $(data0).click(function(event) {
+                $(x).on("click", "div[data-modal]",function(event) {
                     var that = $(this);
                     if (event.target.id == $(this).attr("id")) {
                         that.anderlyne("modal", "close");
                     }
                 });
 
-                $(data1).click(function() {
+                $(x).on("click", "[data-modal-close]", function() {
                     var modal = $(this).parents("[data-modal]");
                     modal.anderlyne("modal", "close");
                     return false;
                 });
 
-                $(data2).click(function() {
+                $(x).on("click", "[data-open-modal]", function() {
                     var modal = $(this).attr("data-open-modal");
                     $("#" + modal).anderlyne("modal", "open");
                 });
 
-                $(x + "[data-title]").mouseenter(function(e) {
+                $(x).on("mouseenter", "[data-title]", function(e) {
                     $("#anderlyne-title").html($(this).attr("data-title"));
                     $("#anderlyne-title").show();
                     if (e.pageX >= window.innerWidth - 150) {
@@ -158,7 +154,7 @@ jQuery.fn.extend({
                     });
                 });
 
-                $(x + '[data-title]').mousemove(function(e) {
+                $(x).on("mousemove", '[data-title]', function(e) {
                     if (e.pageX >= window.innerWidth - $("#anderlyne-title").width() - 40) {
                         var leftPos = e.pageX - $("#anderlyne-title").width();
                     } else {
@@ -170,7 +166,7 @@ jQuery.fn.extend({
                     });
                 });
 
-                $(x + "#anderlyne-title").mousemove(function(e) {
+                $(x).on("mousemove", "#anderlyne-title", function(e) {
                     if (e.pageX >= window.innerWidth - $(this).width()) {
                         var leftPos = e.pageX - $("#anderlyne-title").width() - 10;
                     } else {
@@ -182,7 +178,7 @@ jQuery.fn.extend({
                     });
                 });
 
-                $(x + '[data-title]').mouseleave(function() {
+                $(x).on("mouseleave", '[data-title]', function() {
                     $("#anderlyne-title").hide();
                     $("#anderlyne-title").html("");
                 });
@@ -193,7 +189,7 @@ jQuery.fn.extend({
                     }
                 });
 
-                $(x + "[data-open-context]").contextmenu(function(e) {
+                $(x).on("contextmenu", "[data-open-context]", function(e) {
                     contextMenu = $("#" + $(this).attr("data-open-context"))[0];
 
                     $context.currentTarget = e.currentTarget;
@@ -223,7 +219,7 @@ jQuery.fn.extend({
                         });
                 });
 
-                $("[data-dropdown-menu]").click(function(e) {
+                $(document).on("click", "[data-dropdown-menu]", function(e) {
                     var att = $(this).attr("data-dropdown-menu")
                     t = $("#" + att),
                         that = $(this);
@@ -242,7 +238,7 @@ jQuery.fn.extend({
                     $("[data-dropdown]").hide();
                 });
 
-                $("[data-discoverable]").click(function() {
+                $(document).on("click", "[data-discoverable]", function() {
                     if ($(this).attr("data-discoverable") == "open") {
                         $(this).attr("data-discoverable", true);
                         $("#" + $(this).attr("data-list")).slideUp(300);
