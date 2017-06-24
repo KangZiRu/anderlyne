@@ -112,7 +112,7 @@ jQuery.fn.extend({
 
                 return el.height(max);
             },
-            clearInput() {
+            clearInput(e) {
                 e.filter("input[type='text'], input[type='password'], textarea").val("");
                 e.filter("select").find("option").removeAttr("selected");
                 e.filter("select").find("option:first-child").attr("selected", true);
