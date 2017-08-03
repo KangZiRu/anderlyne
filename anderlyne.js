@@ -112,35 +112,39 @@ jQuery.fn.extend({
 
                 return el.height(max);
             },
-            clearInput(e) {
+            clearInput() {
                 e.filter("input[type='text'], input[type='password'], textarea").val("");
                 e.filter("select").find("option").removeAttr("selected");
                 e.filter("select").find("option:first-child").attr("selected", true);
             },
             main: function(x) {
                 if (typeof x == "undefined") {
-                    x = document;
+                    x = "*";
                 }
 
-                $(x).on("click", "div[data-modal]",function(event) {
+                var data0 = x + " div[data-modal]",
+                    data1 = x + " [data-modal-close]",
+                    data2 = x + " [data-open-modal]";
+
+                $(data0).click(function(event) {
                     var that = $(this);
                     if (event.target.id == $(this).attr("id")) {
                         that.anderlyne("modal", "close");
                     }
                 });
 
-                $(x).on("click", "[data-modal-close]", function() {
+                $(data1).click(function() {
                     var modal = $(this).parents("[data-modal]");
                     modal.anderlyne("modal", "close");
                     return false;
                 });
 
-                $(x).on("click", "[data-open-modal]", function() {
+                $(data2).click(function() {
                     var modal = $(this).attr("data-open-modal");
                     $("#" + modal).anderlyne("modal", "open");
                 });
 
-                $(x).on("mouseenter", "[data-title]", function(e) {
+                $(x + "[data-title]").mouseenter(function(e) {
                     $("#anderlyne-title").html($(this).attr("data-title"));
                     $("#anderlyne-title").show();
                     if (e.pageX >= window.innerWidth - 150) {
@@ -154,7 +158,7 @@ jQuery.fn.extend({
                     });
                 });
 
-                $(x).on("mousemove", '[data-title]', function(e) {
+                $(x + '[data-title]').mousemove(function(e) {
                     if (e.pageX >= window.innerWidth - $("#anderlyne-title").width() - 40) {
                         var leftPos = e.pageX - $("#anderlyne-title").width();
                     } else {
@@ -166,7 +170,7 @@ jQuery.fn.extend({
                     });
                 });
 
-                $(x).on("mousemove", "#anderlyne-title", function(e) {
+                $(x + "#anderlyne-title").mousemove(function(e) {
                     if (e.pageX >= window.innerWidth - $(this).width()) {
                         var leftPos = e.pageX - $("#anderlyne-title").width() - 10;
                     } else {
@@ -178,7 +182,7 @@ jQuery.fn.extend({
                     });
                 });
 
-                $(x).on("mouseleave", '[data-title]', function() {
+                $(x + '[data-title]').mouseleave(function() {
                     $("#anderlyne-title").hide();
                     $("#anderlyne-title").html("");
                 });
@@ -189,7 +193,7 @@ jQuery.fn.extend({
                     }
                 });
 
-                $(x).on("contextmenu", "[data-open-context]", function(e) {
+                $(x + "[data-open-context]").contextmenu(function(e) {
                     contextMenu = $("#" + $(this).attr("data-open-context"))[0];
 
                     $context.currentTarget = e.currentTarget;
@@ -205,21 +209,21 @@ jQuery.fn.extend({
                     $(contextMenu).css({
                         left: x,
                         top: y
-                    }).slideDown();
+                    }).show();
 
                     return false;
                 })
 
                 $(document).click(function(e) {
                     $("[data-context-menu]")
-                        .slideUp()
+                        .hide()
                         .offset({
                             x: 0,
                             y: 0
                         });
                 });
 
-                $(document).on("click", "[data-dropdown-menu]", function(e) {
+                $("[data-dropdown-menu]").click(function(e) {
                     var att = $(this).attr("data-dropdown-menu")
                     t = $("#" + att),
                         that = $(this);
@@ -238,7 +242,7 @@ jQuery.fn.extend({
                     $("[data-dropdown]").hide();
                 });
 
-                $(document).on("click", "[data-discoverable]", function() {
+                $("[data-discoverable]").click(function() {
                     if ($(this).attr("data-discoverable") == "open") {
                         $(this).attr("data-discoverable", true);
                         $("#" + $(this).attr("data-list")).slideUp(300);
